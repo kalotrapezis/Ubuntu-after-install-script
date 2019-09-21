@@ -1,0 +1,285 @@
+#!/bin/bash
+ 
+
+# ---------------------------------------------------------------FUNCTIONS------------------------------------------------------------------------------------
+
+my_laptop(){
+
+# pasword prompt settings for fingerprint
+sudo pam-auth-update
+# beter sound control panel (mute right microphone on laptop)
+sudo apt install pavucontrol -yy
+#(power saving tool)
+sudo add-apt-repository ppa:slimbook/slimbook
+sudo apt update && sudo apt install slimbookbattery -yy
+
+
+
+}
+
+remove_snaps () {
+
+# remove snaps
+sudo rm -rf /var/cache/snapd/
+sudo apt-get autoremove --purge snapd gnome-software-plugin-snap -yy
+rm -fr ~/snap
+sudo apt-get remove --purge gnome-software-plugin-snap -yy
+
+}
+
+clear_gnome(){
+# install clear gnome desktop
+sudo apt-get install gnome-session -yy
+sudo update-alternatives --config gdm3.css -yy
+
+}
+
+over_ampliphication(){
+# allow for volume over 100%
+gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
+# install clear gnome desktop
+
+}
+
+wine1804(){
+
+sudo dpkg --add-architecture i386 
+wget -nc https://dl.winehq.org/wine-builds/winehq.key
+sudo apt-key add winehq.key
+sudo apt-add-repository 'deb http://dl.winehq.org/wine-builds/ubuntu/ artful main'
+sudo apt-get update
+sudo apt-get install --install-recommends winehq-stable -yy\
+
+}
+
+
+wine1904(){
+
+sudo dpkg --add-architecture i386 
+wget -nc https://dl.winehq.org/wine-builds/winehq.key
+sudo apt-key add winehq.key
+sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ disco main'
+sudo apt-get update
+sudo apt-get install --install-recommends winehq-stable -yy\
+
+}
+
+basic_apps(){
+
+sudo add-apt-repository ppa:libreoffice/ppa
+sudo apt-get install gnome-calculator -yy
+sudo apt-get install gnome-calendar -yy
+sudo apt-get install gnome-system-monitor -yy
+sudo apt-get install gnome-music -yy
+sudo apt-get install totem -yy
+sudo apt-get install gnome-contacts -yy
+sudo apt-get install gnome-clocks -yy
+sudo apt-get install gnome-weather -yy
+sudo apt-get install gnome-tweaks -yy
+sudo apt-get install obs-studio -yy
+
+}
+
+install_flatpak(){
+
+sudo apt-get install flatpak -yy
+sudo apt install gnome-software-plugin-flatpak -yy
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+}
+
+Install_spotify(){
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update
+sudo apt-get install spotify-client
+}
+
+install_deb_apps(){
+sudo dpkg -i ~/Apps/*.deb
+}
+
+
+update_reboot(){
+
+sudo apt-get update -yy
+sudo apt-get upgrade -yy
+sudo reboot
+
+}
+
+choose_options(){
+
+dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 12 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Basic_GNOME_Apps on 8 Install_Flatpaks on 9 Install_Spotify off 10 Install_All_Debs_From_Apps_Folder off 11 Update_And_Reboot on 2>temp_log
+
+echo $result
+
+for line in $(cat $filename)
+do
+
+
+
+if [ $line == 1 ]
+then 
+	my_laptop
+	echo "\n\n 1) Laptop Microphone And fingerprint fix-setup DONE! \n\n"
+fi
+
+if [ $line == 2 ]
+then 
+	remove_snaps
+	echo "\n\n 2)  Remove SNAPS and snapd DONE! \n\n"
+fi
+
+if [ $line == 3 ]
+then 
+	clear_gnome
+	echo "\n\n 3) Clear GNOME Session installation DONE! \n\n"
+fi
+
+if [ $line == 4 ]
+then 
+	over_ampliphication
+	echo "\n\n 4) Sound over ampliphication eable DONE! \n\n"
+fi
+
+if [ $line == 5 ]
+then 
+	wine1804
+	echo "\n\n 5) Wine installation for 18.04 DONE! \n\n"
+fi
+
+if [ $line == 6 ]
+then 
+	wine1904
+	echo "\n\n 6) Wine installation for 19.04 DONE! \n\n"
+fi
+
+if [ $line == 7 ]
+then 
+	basic_apps
+	echo "\n\n 7) Basic GNOME Apps installation DONE! \n\n"
+fi
+
+if [ $line == 8 ]
+then 
+	install_flatpak
+	echo "\n\n 8) Installation of flatpaks and flatpak gnome software extension DONE! \n\n"
+fi
+
+if [ $line == 9 ]
+then 
+	Install_spotify
+	echo "\n\n 9) Spotify installation DONE! \n\n"
+fi
+
+if [ $line == 10 ]
+then 
+	install_deb_apps
+	echo "\n\n 10)Installation of all debs in Apps folder  DONE! \n\n"
+fi
+
+if [ $line == 11 ]
+then 
+	update_reboot
+	echo "\n\n 1)  Bye :) \n\n"
+fi
+done
+
+
+rm $filename
+
+}
+
+start(){
+
+dialog --title "What This Is And What The Options mean" --msgbox "
+----this is a script that I made in order to install everything I need \n
+-----after the installation is complete faster. \n \n
+
+
+----The scrit requiers your atention it will ask for your password----\n
+----------------------------and/or your imput.------------------------\n\n
+
+-------------------------------Options-------------------------------- \n\n
+
+1) Laptop_Mic_And_fingerprint_fix \n 
+----this option will open a panel in the terminal, that allows you\n
+----to enable the fingerprint sensor for every password prompt.\n
+----After that it will install pavucontrol. \n
+----On some laptops linix things that you have 2 microphones\n
+----when in reality you have only one. So the microphones shows\n
+----random behavior in the sound meter. With pavucontrol you can\n 
+----mute the right microphone and after that the problem will be fixed. \n
+----After all that it will install a power managment toop for laptops \n
+----coled slimbook battery 3 /n
+2) Remove_SNAPS\n
+----this options removes snap apps and the snapd from you system \n
+3) Clear GNOME session \n
+----this options installs clear gnome seesion, after that \n
+----you can go to the gear on the login screen and have \n
+----the GNOME experience with out ubuntu's stuff on top of it \n
+4) Sound over ampliphication \n
+----This option will enable you to raise the volume up to 150% \n
+5) Wine_18.04 \n
+----This option will install wine *the proper way* for ubntu 18.04\n
+6) Wine_19.04 \n
+----This option will install wine *the proper way* for ubntu 19.04\n
+7) Basic_GNOME_Apps \n
+----This option will install the following drbian apps in to your system \n
+----GNOME calculator, GNOME calendar, GNOME system monitor, GNOME music\n
+----GNOME vidos, GNOME contacts, GNOME clocks, GNOME weather \n
+----GNOME tweaks , and OBS studio. After that it will add a PPA \n
+----for libe ofice \n
+8) Install_Flatpaks \n
+----This options will insatll Flatpak suport to ubuntu system \n
+----and the ubuntu software center \n
+9) Install_Spotify \n
+----This option installs the spotify client to your system \n
+----Spotify is a very popular music streaming service \n 
+----and you can use it for free but with ads \n
+10) Install deb files in App folder
+----drag and drop every deb applicaiton you want to install in this location\n
+---- your-home-folder/App and install them all at once.
+11) Update_And_Reboot \n
+----this option will update your system and then rebooot the PC"  30 80
+
+dialog --title "confirmation" --yesno "Now that you know, do you wish to continue?"  5 60
+
+result="$?"
+echo $result
+
+if [  "$result" == 0 ]
+then 
+	choose_options
+fi
+
+}
+
+#-------------------------------------------------------PROGRAM-------------------------------------------------------------------
+
+sudo apt-get install dialog -yy
+$result
+filename='temp_log'
+n=1
+
+start
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
