@@ -103,6 +103,12 @@ sudo apt-get update
 sudo apt-get install spotify-client -yy
 }
 
+install_nitroshare(){
+sudo add-apt-repository ppa:george-edison55/nitroshare
+sudo apt-get update
+sudo apt-get install nitroshare
+}
+
 install_deb_apps(){
 sudo dpkg -i ~/Apps/*.deb
 }
@@ -118,7 +124,7 @@ sudo reboot
 
 choose_options(){
 
-dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 13 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Lutris off 8 Basic_GNOME_Apps on 9 Install_Flatpaks on 10 Install_Spotify off 11 Install_All_Debs_From_Apps_Folder off 12 Update_And_Reboot on 2>temp_log
+dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 14 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Lutris off 8 Basic_GNOME_Apps on 9 Install_Flatpaks on 10 Install_Spotify off 11 Install_All_Debs_From_Apps_Folder off 12 Install_Nitroshare off 13 Update_And_Reboot on 2>temp_log
 
 echo $result
 
@@ -166,37 +172,43 @@ fi
 if [ $line == 7 ]
 then 
 	lutris
-	printf "\n\n 6) Lutris installation is DONE! \n\n"
+	printf "\n\n 7) Lutris installation is DONE! \n\n"
 fi
 
 if [ $line == 8 ]
 then 
 	basic_apps
-	printf "\n\n 7) Basic GNOME Apps installation DONE! \n\n"
+	printf "\n\n 8) Basic GNOME Apps installation DONE! \n\n"
 fi
 
 if [ $line == 9 ]
 then 
 	install_flatpak
-	printf "\n\n 8) Installation of flatpaks and flatpak gnome software extension DONE! \n\n"
+	printf "\n\n 9) Installation of flatpaks and flatpak gnome software extension DONE! \n\n"
 fi
 
 if [ $line == 10 ]
 then 
 	Install_spotify
-	printf "\n\n 9) Spotify installation DONE! \n\n"
+	printf "\n\n 10) Spotify installation DONE! \n\n"
 fi
 
 if [ $line == 11 ]
 then 
 	install_deb_apps
-	printf "\n\n 10)Installation of all debs in Apps folder  DONE! \n\n"
+	printf "\n\n 11)Installation of all debs in Apps folder  DONE! \n\n"
 fi
 
 if [ $line == 12 ]
 then 
+	install_nitroshare
+	printf "\n\n 12)Installation of Nitroshare  DONE! \n\n"
+fi
+
+if [ $line == 13 ]
+then 
 	update_reboot
-	printf "\n\n 1)  Bye :) \n\n"
+	printf "\n\n 14)  Bye :) \n\n"
 fi
 done
 
@@ -258,8 +270,12 @@ dialog --title "What This Is And What The Options mean" --msgbox "
 ----and you can use it for free but with ads \n
 11) Install deb files in App folder
 ----drag and drop every deb applicaiton you want to install in this location\n
----- your-home-folder/App and install them all at once.
-12) Update_And_Reboot \n
+---- your-home-folder/App and install them all at once. \n
+12) Install_Nitroshare \n
+----This option installs nitroshare, nitroshare is a cross platform \n
+----application that alows you to share files and forders between computers \n
+----connected to your local network. \n
+13) Update_And_Reboot \n
 ----this option will update your system and then rebooot the PC"  30 80
 
 dialog --title "confirmation" --yesno "Now that you know, do you wish to continue?"  5 60
