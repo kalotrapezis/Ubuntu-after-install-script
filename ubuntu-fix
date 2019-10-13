@@ -70,7 +70,6 @@ sudo apt-get install lutris -yy
 
 basic_apps(){
 
-sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt-get install gnome-calculator -yy
 sudo apt-get install gnome-calendar -yy
 sudo apt-get install gnome-system-monitor -yy
@@ -82,6 +81,8 @@ sudo apt-get install gnome-weather -yy
 sudo apt-get install geary -yy
 sudo apt-get install gnome-tweaks -yy
 sudo apt-get install obs-studio -yy
+sudo pat-get install mpv
+sudo apt-get -y install libgconf2-4
 
 }
 
@@ -298,6 +299,7 @@ filename='temp_log'
 n=1
 
 start
+rm winehq.key
 
 
 
