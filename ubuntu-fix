@@ -70,6 +70,9 @@ sudo apt-get install lutris -yy
 
 basic_apps(){
 
+sudo apt-get remove thunderbird -yy
+sudo apt-get remove vlc -yy
+sudo apt-get mpv -yy
 sudo apt-get install gnome-calculator -yy
 sudo apt-get install gnome-calendar -yy
 sudo apt-get install gnome-system-monitor -yy
@@ -81,8 +84,8 @@ sudo apt-get install gnome-weather -yy
 sudo apt-get install geary -yy
 sudo apt-get install gnome-tweaks -yy
 sudo apt-get install obs-studio -yy
-sudo pat-get install mpv
-sudo apt-get -y install libgconf2-4
+sudo pat-get install mpv -yy
+sudo apt-get -y install libgconf2-4 -yy
 
 }
 
@@ -95,23 +98,26 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 }
 
 Install_spotify(){
-curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update
-curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update
-sudo apt-get install spotify-client -yy
+
+flatpak install flathub com.spotify.Client -yy
+
 }
 
 install_nitroshare(){
 sudo add-apt-repository ppa:george-edison55/nitroshare
 sudo apt-get update
-sudo apt-get install nitroshare
+sudo apt-get install nitroshare -yy
+}
+
+install_libreoffice(){
+
+sudo apt-get purge libreoffice*
+flatpak install flathub org.libreoffice.LibreOffice -yy
+
 }
 
 install_deb_apps(){
-sudo dpkg -i ~/Apps/*.deb
+sudo dpkg -i ~/Apps/*.deb -yy
 }
 
 
@@ -125,7 +131,7 @@ sudo reboot
 
 choose_options(){
 
-dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 14 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Lutris off 8 Basic_GNOME_Apps on 9 Install_Flatpaks on 10 Install_Spotify off 11 Install_All_Debs_From_Apps_Folder off 12 Install_Nitroshare off 13 Update_And_Reboot on 2>temp_log
+dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 15 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Lutris off 8 Basic_GNOME_Apps on 9 Install_Flatpaks on 10 Install_Spotify off 11 Install_All_Debs_From_Apps_Folder off 12 Install_Nitroshare off 13 Libre_office on 14 Update_And_Reboot on 2>temp_log
 
 echo $result
 
@@ -208,6 +214,12 @@ fi
 
 if [ $line == 13 ]
 then 
+	install_libreoffice
+	printf "\n\n 13)Installation of Libre Office  DONE! \n\n"
+fi
+
+if [ $line == 14 ]
+then 
 	update_reboot
 	printf "\n\n 14)  Bye :) \n\n"
 fi
@@ -215,6 +227,7 @@ done
 
 
 rm $filename
+rm winehq.key
 
 }
 
@@ -265,7 +278,7 @@ dialog --title "What This Is And What The Options mean" --msgbox "
 9) Install_Flatpaks \n
 ----This options will insatll Flatpak suport to ubuntu system \n
 ----and the ubuntu software center \n
-10) Install_Spotify \n
+10) Install_Spotify (Flatpak)\n
 ----This option installs the spotify client to your system \n
 ----Spotify is a very popular music streaming service \n 
 ----and you can use it for free but with ads \n
@@ -276,7 +289,10 @@ dialog --title "What This Is And What The Options mean" --msgbox "
 ----This option installs nitroshare, nitroshare is a cross platform \n
 ----application that alows you to share files and forders between computers \n
 ----connected to your local network. \n
-13) Update_And_Reboot \n
+13) Install_libre_office (Flatpak) \n
+----istall the latest Libre Office version, a great Microsoft Office \n
+----alternative for linux \n 
+14) Update_And_Reboot \n
 ----this option will update your system and then rebooot the PC"  30 80
 
 dialog --title "confirmation" --yesno "Now that you know, do you wish to continue?"  5 60
@@ -299,7 +315,7 @@ filename='temp_log'
 n=1
 
 start
-rm winehq.key
+
 
 
 
