@@ -70,9 +70,6 @@ sudo apt-get install lutris -yy
 
 basic_apps(){
 
-sudo apt-get remove thunderbird -yy
-sudo apt-get remove vlc -yy
-sudo apt-get mpv -yy
 sudo apt-get install gnome-calculator -yy
 sudo apt-get install gnome-calendar -yy
 sudo apt-get install gnome-system-monitor -yy
@@ -84,8 +81,9 @@ sudo apt-get install gnome-weather -yy
 sudo apt-get install geary -yy
 sudo apt-get install gnome-tweaks -yy
 sudo apt-get install obs-studio -yy
-sudo pat-get install mpv -yy
-sudo apt-get -y install libgconf2-4 -yy
+sudo pat-get install mpv
+sudo apt-get -y install libgconf2-4
+sudo apt-get remove libreoffice*
 
 }
 
@@ -106,32 +104,34 @@ flatpak install flathub com.spotify.Client -yy
 install_nitroshare(){
 sudo add-apt-repository ppa:george-edison55/nitroshare
 sudo apt-get update
-sudo apt-get install nitroshare -yy
+sudo apt-get install nitroshare
 }
 
 install_libreoffice(){
 
-sudo apt-get purge libreoffice*
 flatpak install flathub org.libreoffice.LibreOffice -yy
 
 }
 
 install_deb_apps(){
-sudo dpkg -i ~/Apps/*.deb -yy
+sudo dpkg -i ~/Apps/*.deb
 }
 
 
 update_reboot(){
 
+
 sudo apt-get update -yy
 sudo apt-get upgrade -yy
+rm $filename
+rm winehq.key
 sudo reboot
 
 }
 
 choose_options(){
 
-dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 15 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Lutris off 8 Basic_GNOME_Apps on 9 Install_Flatpaks on 10 Install_Spotify off 11 Install_All_Debs_From_Apps_Folder off 12 Install_Nitroshare off 13 Libre_office on 14 Update_And_Reboot on 2>temp_log
+dialog --title "What do you need" --checklist "choose the operations you want to exequte:" 20 50 15 1 Laptop_Mic_And_fingerprint_fix off 2 Remove_SNAPS on 3 Clear_GNOME_Session off 4 Sound_over_ampliphication on 5 Wine_18.04 on 6 Wine_19.04 off 7 Lutris off 8 Basic_GNOME_Apps on 9 Install_Flatpaks on 10 Install_Spotify_flatpak off 11 Install_All_Debs_From_Apps_Folder off 12 Install_Nitroshare off 13 Libre_office_flatpak on 14 Update_And_Reboot on 2>temp_log
 
 echo $result
 
@@ -225,10 +225,6 @@ then
 fi
 done
 
-
-rm $filename
-rm winehq.key
-
 }
 
 start(){
@@ -252,7 +248,7 @@ dialog --title "What This Is And What The Options mean" --msgbox "
 ----random behavior in the sound meter. With pavucontrol you can\n 
 ----mute the right microphone and after that the problem will be fixed. \n
 ----After all that it will install a power managment toop for laptops \n
-----coled slimbook battery 3 /n
+----coled slimbook battery 3 \n
 2) Remove_SNAPS\n
 ----this options removes snap apps and the snapd from you system \n
 3) Clear GNOME session \n
