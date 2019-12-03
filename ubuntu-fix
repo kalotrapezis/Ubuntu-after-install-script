@@ -18,18 +18,18 @@ sudo apt update && sudo apt install slimbookbattery -yy
 remove_snaps () {
 
 # remove snaps
+sudo systemctl disable apport
 sudo rm -rf /var/cache/snapd/
 sudo apt-get autoremove --purge snapd gnome-software-plugin-snap -yy
 rm -fr ~/snap
 sudo apt-get remove --purge gnome-software-plugin-snap -yy
-
+sudo apt-get autoremove -y
 }
 
 clear_gnome(){
 # install clear gnome desktop
 sudo apt-get install gnome-session -yy
 sudo update-alternatives --config gdm3.css -yy
-
 }
 
 over_ampliphication(){
