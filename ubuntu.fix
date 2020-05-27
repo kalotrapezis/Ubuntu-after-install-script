@@ -1,0 +1,112 @@
+#!/bin/bash
+#add finderprint suport
+sudo pam-auth-update
+#more ditaled soud control pannel
+sudo apt install pavucontrol -yy
+sudo apt-get update 
+# allow for over sound amplification to 150%
+gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
+# desable GNOME friquent apps 
+gsettings set org.gnome.desktop.privacy remember-app-usage false
+
+#remove firefox
+sudo apt-get remove firefox
+#remove vlc
+sudo apt-get remove vlc
+sudo snap remove vlc
+#install gnome software-center
+sudo apt-get install gnome-software-center -yy
+#install flatpak suport
+sudo apt install flatpak -yy
+#install flatpack plugin for software center
+sudo apt install gnome-software-plugin-flatpak -yy
+#add flathub repository
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo -yy
+#install gnome apps
+sudo apt-get install gnome-calendar -yy
+sudo apt-get install gnome-music -yy
+sudo apt-get install totem -yy
+sudo apt-get install gnome-contacts -yy
+sudo apt-get install gnome-clocks -yy
+sudo apt-get install gnome-weather -yy
+sudo apt-get install geary -yy
+sudo apt-get install gnome-tweaks -yy
+sudo apt-get install unrar -yy
+#install obs studio
+sudo apt-get install obs-studio -yy
+#install mpv player
+sudo pat-get install mpv -yy
+# idon't remember why i addid this library
+sudo apt-get -y install libgconf2-4
+#remove libreoffice (flatpak is better)
+sudo apt-get remove libreoffice* -yy
+#install flameshot screenshot and sketch uyility
+sudo apt-get install flameshot -yy
+#install skype snap
+snap install skype --classic
+#install spotify snap
+snap install spotify
+#install quick view like mac utility (open files with space bar)
+sudo apt-get install gnome-sushi -yy
+#install wine 
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+dpkg --add-architecture i386 
+sudo apt-get install libncurses5:i386
+sudo apt-get install libncurses5
+sudo apt-get update
+sudo apt install wine64 wine32 -yy
+
+#set up wine
+wine --ver
+#install steam
+sudo apt install steam -yy
+#install exfat suport for gnome disks (like fat32 for files biger than 4GB)
+sudo apt-get install exfat-utils exfat-fuse -yy
+#Microsoft Fonts
+sudo apt-get install ttf-mscorefonts-installer -yy
+
+
+#hide snap folder with this git project (after installation right click and sellect hide to the snap folder)
+sudo apt-get install cmake -yy
+sudo apt-get install gettext -yy
+sudo apt-get install python-nautilus -yy
+sudo apt-get install xdotool -yy
+cd ~/
+mkdir temp
+cd temp
+wget https://github.com/brunonova/nautilus-hide/releases/download/v0.2.3/nautilus-hide_0.2.3.tar.xz
+tar -xf nautilus-hide_0.2.3.tar.xz
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+nautilus -q
+
+# download google chrome and install it
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb -yy
+#download stremio streaming program and install it
+wget https://dl.strem.io/linux/v4.4.106/stremio_4.4.106-1_amd64.deb -yy
+sudo dpkg -i stremio_4.4.106-1_amd64.deb -yy
+#diownload teamviewer and install it
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb -yy
+sudo dpkg -i teamviewer_amd64.deb -yy
+#download megasync client and install it
+wget https://mega.nz/linux/MEGAsync/xUbuntu_20.04/amd64/megasync-xUbuntu_20.04_amd64.deb -yy
+sudo dpkg -i megasync-xUbuntu_20.04_amd64.deb -yy
+#Master PDF free pdf editor
+http://code-industry.net/public/master-pdf-editor-4.3.89_qt5.amd64.deb
+sudo dpkg -i master-pdf-editor-4.3.89_qt5.amd64.deb -yy
+#resolve any depentencey iseus and install all faled packages
+sudo apt-get -f install -yy
+# get out of the temp folder and remove it
+cd ..
+sudo rm -r temp
+# do an system update and reboot
+sudo apt-get upgrade
+#end of part 1
+echo "END     OF      PART     1   AFTER REBOOT START PART 2 FOR FLATPAKS"
+sleep 10
+reboot

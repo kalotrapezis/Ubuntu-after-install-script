@@ -1,0 +1,22 @@
+#!/bin/bash
+# install gnome extension plugin (gives the ability to add plogins threu chrome from gnome-extensions.com)
+sudo apt-get-install chrome-gnome-shell -yy
+# install shortware (internet radio app)
+flatpak install flathub de.haeckerfelix.Shortwave -yy
+#install libre office
+flatpak install flathub org.libreoffice.LibreOffice -yy
+#install peek gif creator
+flatpak install flathub com.uploadedlobster.peek -yy
+#install kodi media center
+flatpak install flathub tv.kodi.Kodi -yy
+#install mendely (sientific paper shearching platphorm)
+flatpak install flathub com.elsevier.MendeleyDesktop -yy
+#install fragments torrent client
+flatpak install flathub de.haeckerfelix.Fragments -yy
+#install viber
+flatpak install flathub com.viber.Viber
+echo "NOW YOU CAN INSTALL THE GNOME EXTENTIONS FOR CHROME AND EXTEND THE FANCTIONALITY OF YOUR DESKTOP"
+sleep 10
+exit
+
+
